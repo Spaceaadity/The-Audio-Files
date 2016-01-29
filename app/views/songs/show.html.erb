@@ -1,0 +1,26 @@
+<p class="logout">
+	<a href="/songs">Dashboard</a> |
+	<a href="/logout" data-method="delete">Log out</a>
+</p>
+<div class="display">
+	<h3>Others who have added <%= @song.artist %> - <%= @song.title %></h3>
+
+	<table class="songUsers">
+		<thead>
+			<th>Name</th>
+			<th>Times Added</th>
+		</thead>
+		<tbody>
+			<% @ownes.each do |owner| %>
+				<tr>
+					<td>
+						<a href="/users/<%= owner.id %>" data-method="get"><%= owner.first_name %> <%= owner.last_name %></a>
+					</td>
+					<td>
+						<%= @ownCount.where(user: User.find(owner.id)).count %>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

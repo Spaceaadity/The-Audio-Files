@@ -1,0 +1,51 @@
+<div class="flash_msg">
+	<% if flash[:error] %>
+		<p style="color:red"><%= flash[:error] %></p>
+	<% elsif flash[:reg_errors] %>
+		<% flash[:reg_errors].each do |err| %>
+			<p style="color:red"><%= err %></p>
+		<% end %>
+	<% elsif flash[:notice] %>
+		<p style="color:green"><%= flash[:notice] %></p>
+	<% end %>
+</div>
+<div class="register">
+	<form action="/users" method="post">
+	<fieldset>
+	<legend>Register</legend>
+		<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+		<p><label for="first_name">First Name:</label>
+		<input type="text" id="first_name" name="user[first_name]"></p>
+		<p><label for="last_name">First Name:</label>
+		<input type="text" id="last_name" name="user[last_name]"></p>
+		<p><label for="email">Email:</label>
+		<input type="text" id="email" name="user[email]"></p>
+		<p>
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="user[password]">
+		</p>
+		<p>
+			<label for='password_confirmation'>Password Confirmation:</label>
+			<input type="password" id="password_cofirmation" name="user[password_confirmation">
+		</p>
+		<input type="submit" value="register">
+	</fieldset>
+	</form>
+</div>
+<div class="login">
+	<form action="/login" method="post">
+	<fieldset>
+	<legend>Log In</legend>
+		<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+		<p>
+			<label for="email">Email:</label>
+			<input type="text" id="email" name="session[email]">
+		</p>
+		<p>
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="session[password]">
+		</p>
+		<input type="submit" value="Log In">
+	</fieldset>
+	</form>
+</div>

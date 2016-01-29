@@ -1,0 +1,55 @@
+<h2>Hello, <%= @user.first_name %> <%= @user.last_name%>!</h2>
+<a class="logout" href="/logout" data-method="delete">Log out</a>
+<div>
+<p>all the songs in our hub:</p>
+<table>
+	<thead>
+		<th>Artist</th>
+		<th>Title</th>
+		<th>No. of Times Song has been Added</th>
+		<th>Add to Playlist?</th>
+	</thead>
+	<tbody>
+		<% @songs.each do |song| %>
+			
+			<tr>
+				<td><%= song.artist %></td>
+				<td><a href="/songs/<%= song.id %>" data-method="get"><%= song.title %></a></td>
+				<td><%= @counts.where(song: Song.find(song.id)).count %></td>
+				<td>
+					<form action="/add/<%= song.id %>" method="post">
+						<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+						<input type="submit" value="Add">
+					</form>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+</div>
+
+<div>
+
+</div>
+	<% if flash[:song_errors] %>
+		<% flash[:song_errors].each do |err| %>
+			<p style="color:red"><%= err %></p>
+		<% end %>
+	<% end %>
+<div class="addSong">
+<form action="/songs" method="post">
+<fieldset>
+<legend>Add a Song to Our Hub:</legend>
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<p>
+		<label for="title">Title:</label>
+		<input type="text" id="title" name="song[title]">
+	</p>
+	<p>
+		<label for="artist">Artist:</label>
+		<input type="text" id="artist" name="song[artist]">
+	</p>
+	<input type="submit" value="Add Song">
+</fieldset>
+</form>
+</div>

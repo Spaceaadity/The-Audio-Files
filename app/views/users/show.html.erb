@@ -1,0 +1,24 @@
+<div class="logout">
+	<a href="/songs">Dashboard</a>
+	<a href="/logout" data-method="delete">Log out</a>
+</div>
+<div class="display">
+	<h2 class="playlist"><%= @user.first_name %> <%= @user.last_name %>'s Playlist</h2>
+	<table>
+		<thead>
+			<th>Artist</th>
+			<th>Title</th>
+			<th>Times Added</th>
+		</thead>
+		<tbody>
+			<% @playlist.each do |song| %>
+				
+				<tr>
+					<td><%= song.artist %></td>
+					<td><%= song.title %></td>
+					<td><%= @addCount.where(song: Song.find(song.id)).count %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
